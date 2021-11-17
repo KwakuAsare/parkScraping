@@ -7,4 +7,4 @@ const writeStream = fs.createWriteStream('terminalOccupancyData.csv');
 // Generate database file
 writeStream.write(`Terminal A,Terminal B,Terminal C/D \n`);
 
-var minutes = 45, timerInerval = minutes * 60 * 1000;
+var minutes = 30, timerInerval = minutes * 60 * 1000;
