@@ -3,13 +3,13 @@ const request = require('request');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const writeStream = fs.createWriteStream('terminalOccupancyData.csv');
-const { BigQuery } = require('@google-cloud/bigquery');
+//const { BigQuery } = require('@google-cloud/bigquery');
 
 // Generate database file with fs writestrean
 writeStream.write(`Terminal A,Terminal B,Terminal C/D \n`);
 
 //setting a time interval for scraping
-var minutes = 30, timerInerval = minutes * 60 * 1000;
+var minutes = 1, timerInerval = minutes * 60 * 1000;
 
 // Function to scrap Laguardia Parking Occupancy data after every 30 minutes
 function TerminalOccupancyData() {
@@ -37,6 +37,9 @@ function TerminalOccupancyData() {
           .find('.terminal-percentage')
           .text()
           .replace(/% Full/, '');
+
+        // Export to file to upload to database
+        writeStream.write(`${terminalA},${terminalB},${terminalCD} \n`);
       });
 
       console.log('\nTerminal Data scraped ... \n');
@@ -44,8 +47,7 @@ function TerminalOccupancyData() {
 
   });
 
-  // Export to file to upload to database
-  writeStream.write(`${terminalA},${terminalB},${terminalCD} \n`);
+
 }
 // Run script after every 30 minutes
 setInterval(TerminalOccupancyData, timerInerval);
