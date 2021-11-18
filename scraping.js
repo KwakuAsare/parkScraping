@@ -9,7 +9,7 @@ const writeStream = fs.createWriteStream('terminalOccupancyData.csv');
 writeStream.write(`Terminal A,Terminal B,Terminal C/D \n`);
 
 //setting a time interval for scraping
-var minutes = 1, timerInerval = minutes * 60 * 1000;
+var minutes = 30, timerInerval = minutes * 60 * 1000;
 
 // Function to scrap Laguardia Parking Occupancy data after every 30 minutes
 function TerminalOccupancyData() {
